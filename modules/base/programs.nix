@@ -84,4 +84,16 @@
     enableBashIntegration = true;
     enableZshIntegration = true;
   };
+
+  # https://home-manager.dev/manual/23.05/options.html#opt-programs.zellij.enable
+  programs.zellij = {
+    enable = true;
+    # enableBashIntegration = true;
+    # enableZshIntegration = true;
+  };
+
+  # https://home-manager.dev/manual/23.05/options.html#opt-programs.tmux.enable
+  programs.tmux = {
+    enable = true;
+  };
 }

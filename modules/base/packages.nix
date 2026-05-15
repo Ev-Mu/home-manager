@@ -6,10 +6,14 @@
 
     pkgs.curl
 
+    pkgs.gdu
     pkgs.git
 
     pkgs.kubectl
 
+    pkgs.gnumake
+
+    pkgs.ncdu
     pkgs.nixfmt
 
 
