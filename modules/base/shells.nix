@@ -32,7 +32,7 @@ in
     shellAliases = shellAliases;
     initExtra = ''
       # Custom file to put things that shouldnt be public
-      if [[ -f $HOME/.bashrc_secrets ]]; then . $HOME/.bashrc_secrets; fi
+      if [[ -f $HOME/.bashrc_extras ]]; then . $HOME/.bashrc_extras; fi
 
       # https://worktrunk.dev/config/
       eval "$(wt config shell init bash)"
@@ -76,7 +76,7 @@ in
     };
     initContent = ''
       # Custom file to put things that shouldnt be public
-      if [[ -f $HOME/.zshrc_secrets ]]; then . $HOME/.zshrc_secrets; fi
+      if [[ -f $HOME/.zshrc_extras ]]; then . $HOME/.zshrc_extras; fi
 
       # https://worktrunk.dev/config/
       eval "$(wt config shell init zsh)"
