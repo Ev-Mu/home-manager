@@ -76,6 +76,9 @@
     enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true;
+    options = [
+      "--cmd cd"
+    ];
   };
 
   # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.eza.enable
