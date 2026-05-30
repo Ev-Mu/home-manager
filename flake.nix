@@ -19,6 +19,10 @@
       ...
     }:
     let
+      # The state version is required and should stay
+      # at the version you originally installed.
+      stateVersion = "25.11";
+
       system = "x86_64-linux";
 
       pkgs = import nixpkgs {
@@ -30,64 +34,41 @@
         inherit system;
       };
 
-      # The state version is required and should stay
-      # at the version you originally installed.
-      stateVersion = "25.11";
+      mkHome =
+        { isGUI }:
+        home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+
+          extraSpecialArgs = {
+            inherit nixgl pkgs-unstable;
+            inherit isGUI;
+          };
+
+          modules = [
+            ./home.nix
+
+            {
+              home = {
+                username = "emusic";
+                homeDirectory = "/home/emusic";
+                stateVersion = "${stateVersion}";
+              };
+            }
+          ];
+        };
     in
     {
       homeConfigurations = {
-        "emusic-base" = home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgs;
-          extraSpecialArgs = {
-            inherit nixgl pkgs-unstable;
-            isGUI = false;
-          };
-          modules = [
-            ./home.nix
-            {
-              home = {
-                username = "emusic";
-                homeDirectory = "/home/emusic";
-                stateVersion = "${stateVersion}";
-              };
-            }
-          ];
+        emusic = mkHome {
+          isGUI = false;
         };
 
-        "emusic-gui" = home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgs;
-          extraSpecialArgs = {
-            inherit nixgl pkgs-unstable;
-            isGUI = true;
-          };
-          modules = [
-            ./home.nix
-            {
-              home = {
-                username = "emusic";
-                homeDirectory = "/home/emusic";
-                stateVersion = "${stateVersion}";
-              };
-            }
-          ];
+        emusic-gui = mkHome {
+          isGUI = true;
         };
 
-        "runner" = home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgs;
-          extraSpecialArgs = {
-            inherit nixgl pkgs-unstable;
-            isGUI = true;
-          };
-          modules = [
-            ./home.nix
-            {
-              home = {
-                username = "runner";
-                homeDirectory = "/home/runner";
-                stateVersion = "${stateVersion}";
-              };
-            }
-          ];
+        runner = mkHome {
+          isGUI = true;
         };
       };
     };

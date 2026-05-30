@@ -57,7 +57,6 @@
   "workbench.iconTheme": "vscode-icons",
   "workbench.navigationControl.enabled": false,
   "workbench.secondarySideBar.defaultVisibility": "hidden",
-  "workbench.statusBar.visible": false,
 
   "[go]": {
     "editor.insertSpaces": false,
