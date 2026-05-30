@@ -45,6 +45,7 @@
   "scm.diffDecorations": "none",
 
   "terminal.integrated.defaultProfile.linux": "zsh",
+  "terminal.integrated.initialHint": false,
   "terminal.integrated.stickyScroll.enabled": false,
 
   "vim.useSystemClipboard": true,

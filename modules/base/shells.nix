@@ -19,10 +19,29 @@ let
     ls = "eza --icons --group-directories-first";
     lt = "eza --icons --tree";
     make-keys = "ssh-keygen -t rsa -b 4096";
-    switch = "home-manager switch --flake $HOME/.config/home-manager#$USER";
-    switch-gui = "home-manager switch --flake $HOME/.config/home-manager#$USER-gui";
+    switch = "home-manager switch --flake $HOME/.config/home-manager#$USER -b backup";
+    switch-gui = "home-manager switch --flake $HOME/.config/home-manager#$USER-gui -b backup";
     rebuild = "sudo nixos-rebuild switch --flake $HOME/.config/nixos#$USER";
   };
+  shellExtras =
+    { shell }:
+    ''
+      # Custom file to put things that shouldnt be public
+      if [ -f "$HOME/.${shell}rc_extras" ]; then
+        . "$HOME/.${shell}rc_extras"
+      fi
+
+      # https://worktrunk.dev/config/
+      eval "$(wt config shell init ${shell})"
+
+      # # Always start zellij outside vscode and non-interactive shells
+      # if [[ $- == *i* ]] \
+      #   && command -v zellij >/dev/null 2>&1 \
+      #   && [ -z "$ZELLIJ" ] \
+      #   && [ "$TERM_PROGRAM" != "vscode" ]; then
+      #     zellij attach default -c
+      # fi
+    '';
 in
 {
   # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.enable
@@ -30,13 +49,7 @@ in
     enable = true;
     sessionVariables = sessionVariables;
     shellAliases = shellAliases;
-    initExtra = ''
-      # Custom file to put things that shouldnt be public
-      if [[ -f $HOME/.bashrc_extras ]]; then . $HOME/.bashrc_extras; fi
-
-      # https://worktrunk.dev/config/
-      eval "$(wt config shell init bash)"
-    '';
+    initExtra = shellExtras { shell = "bash"; };
   };
 
   # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fish.enable
@@ -74,12 +87,6 @@ in
       enable = true;
       theme = "af-magic";
     };
-    initContent = ''
-      # Custom file to put things that shouldnt be public
-      if [[ -f $HOME/.zshrc_extras ]]; then . $HOME/.zshrc_extras; fi
-
-      # https://worktrunk.dev/config/
-      eval "$(wt config shell init zsh)"
-    '';
+    initContent = shellExtras { shell = "zsh"; };
   };
 }

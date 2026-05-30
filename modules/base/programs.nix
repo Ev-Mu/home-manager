@@ -88,14 +88,19 @@
     enableZshIntegration = true;
   };
 
-  # https://home-manager.dev/manual/23.05/options.html#opt-programs.zellij.enable
+  # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zellij.enable
   programs.zellij = {
     enable = true;
-    # enableBashIntegration = true;
-    # enableZshIntegration = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+    exitShellOnExit = true;
+    extraConfig = ''
+      theme "catppuccin-mocha"
+      show_startup_tips false
+    '';
   };
 
-  # https://home-manager.dev/manual/23.05/options.html#opt-programs.tmux.enable
+  # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.tmux.enable
   programs.tmux = {
     enable = true;
   };
