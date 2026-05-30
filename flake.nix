@@ -35,7 +35,11 @@
       };
 
       mkHome =
-        { isGUI }:
+        {
+          isGUI,
+          username,
+          homeDirectory,
+        }:
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
 
@@ -49,8 +53,8 @@
 
             {
               home = {
-                username = "emusic";
-                homeDirectory = "/home/emusic";
+                inherit username;
+                inherit homeDirectory;
                 stateVersion = "${stateVersion}";
               };
             }
@@ -61,14 +65,20 @@
       homeConfigurations = {
         emusic = mkHome {
           isGUI = false;
+          username = "emusic";
+          homeDirectory = "/home/emusic";
         };
 
         emusic-gui = mkHome {
           isGUI = true;
+          username = "emusic";
+          homeDirectory = "/home/emusic";
         };
 
         runner = mkHome {
           isGUI = true;
+          username = "runner";
+          homeDirectory = "/home/runner";
         };
       };
     };
