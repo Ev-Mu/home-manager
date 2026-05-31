@@ -19,8 +19,6 @@ let
     ls = "eza --icons --group-directories-first";
     lt = "eza --icons --tree";
     make-keys = "ssh-keygen -t rsa -b 4096";
-    switch = "home-manager switch --flake $HOME/.config/home-manager#$USER -b backup";
-    switch-gui = "home-manager switch --flake $HOME/.config/home-manager#$USER-gui -b backup";
     rebuild = "sudo nixos-rebuild switch --flake $HOME/.config/nixos#$USER";
   };
   shellExtras =

@@ -63,13 +63,13 @@
     in
     {
       homeConfigurations = {
-        emusic = mkHome {
+        base = mkHome {
           isGUI = false;
           username = "emusic";
           homeDirectory = "/home/emusic";
         };
 
-        emusic-gui = mkHome {
+        gui = mkHome {
           isGUI = true;
           username = "emusic";
           homeDirectory = "/home/emusic";
