@@ -3,9 +3,9 @@
 
   # Flake inputs
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixgl.url = "github:nix-community/nixGL";
   };
@@ -19,9 +19,9 @@
       ...
     }:
     let
-      # The state version is required and should stay
-      # at the version you originally installed.
-      stateVersion = "25.11";
+      # The state version is required and should usually
+      # stay at the version you originally installed.
+      stateVersion = "26.05";
 
       system = "x86_64-linux";
 
@@ -83,9 +83,17 @@
       };
 
       templates = {
+        go = {
+          path = ./templates/go;
+          description = "Go development environment";
+        };
         npm = {
           path = ./templates/npm;
           description = "npm development environment";
+        };
+        python = {
+          path = ./templates/python;
+          description = "Python development environment";
         };
       };
     };

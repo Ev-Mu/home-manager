@@ -47,7 +47,7 @@
       yazi-nvim
     ];
 
-    extraLuaConfig = ''
+    initLua = ''
       require('lualine').setup {
         options = {
           theme = 'auto', -- Automatically selects a theme based on your colorscheme

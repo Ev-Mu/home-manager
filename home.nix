@@ -65,6 +65,7 @@ in
         if [[ -f /snap/bin/firefox ]]; then echo -e "\033[1;33mWarning\033[0m: There are snap packages installed that may conflict with nix packages" && echo -e "\033[0;32mRun\033[0m: sudo snap remove --purge firefox"; fi
       '';
   home.activation.addshells = lib.hm.dag.entryAfter [ "checkInstalled" ] ''
+    [[ -f /etc/NIXOS ]] && exit
     shell_path="/home/$USER/.nix-profile/bin/zsh"
     if ! grep -Fxq "$shell_path" /etc/shells; then
       echo -e "\033[1;33mWarning\033[0m: $shell_path is not in /etc/shells"
