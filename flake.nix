@@ -81,5 +81,12 @@
           homeDirectory = "/home/runner";
         };
       };
+
+      templates = {
+        npm = {
+          path = ./templates/npm;
+          description = "npm development environment";
+        };
+      };
     };
 }
