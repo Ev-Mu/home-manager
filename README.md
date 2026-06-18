@@ -33,7 +33,7 @@ For ongoing development and customization, clone the repository first:
    && source /etc/profile \
    && nix-shell -p home-manager git \
        --run "git clone git@github.com:Ev-Mu/home-manager.git ~/.config/home-manager \
-       && home-manager switch --extra-experimental-features 'nix-command flakes' --flake $HOME/.config/home-manager#base"
+       && home-manager switch -b backup --extra-experimental-features 'nix-command flakes' --flake $HOME/.config/home-manager#base"
    ```
 
 ## Repository Structure
