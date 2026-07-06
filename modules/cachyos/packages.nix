@@ -2,9 +2,9 @@
 
 {
   home.packages = [
-    pkgs-unstable.bambu-studio
+    # pkgs-unstable.bambu-studio
 
-    pkgs-unstable.steam
+    # pkgs-unstable.steam
   ];
 }
 
