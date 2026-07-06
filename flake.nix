@@ -28,15 +28,17 @@
       pkgs = import nixpkgs {
         inherit system;
         overlays = [ nixgl.overlay ];
+        config.allowUnfree = true;
       };
 
       pkgs-unstable = import nixpkgs-unstable {
         inherit system;
+        config.allowUnfree = true;
       };
 
       mkHome =
         {
-          isGUI,
+          profile,
           username,
           homeDirectory,
         }:
@@ -45,7 +47,7 @@
 
           extraSpecialArgs = {
             inherit nixgl pkgs-unstable;
-            inherit isGUI;
+            inherit profile;
           };
 
           modules = [
@@ -64,19 +66,31 @@
     {
       homeConfigurations = {
         base = mkHome {
-          isGUI = false;
+          profile = "base";
           username = "emusic";
           homeDirectory = "/home/emusic";
         };
 
-        gui = mkHome {
-          isGUI = true;
+        base-nixos = mkHome {
+          profile = "base-nixos";
+          username = "emusic";
+          homeDirectory = "/home/emusic";
+        };
+
+        nixos = mkHome {
+          profile = "nixos";
+          username = "emusic";
+          homeDirectory = "/home/emusic";
+        };
+
+        cachyos = mkHome {
+          profile = "cachyos";
           username = "emusic";
           homeDirectory = "/home/emusic";
         };
 
         runner = mkHome {
-          isGUI = true;
+          profile = "runner";
           username = "runner";
           homeDirectory = "/home/runner";
         };

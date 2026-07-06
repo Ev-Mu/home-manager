@@ -3,7 +3,7 @@
   pkgs,
   lib,
   nixgl,
-  isGUI,
+  profile,
   ...
 }:
 let
@@ -20,13 +20,43 @@ let
 
   baseModules = importDir ./modules/base;
   guiModules = importDir ./modules/gui;
+  nixosModules = importDir ./modules/nixos;
+  nonNixosModules = importDir ./modules/non-nixos;
+  cachyosModules = importDir ./modules/cachyos;
+
+  configurations = {
+    base = 
+      baseModules
+      ++ nonNixosModules;
+
+    base-nixos = 
+      baseModules
+      ++ nixosModules;
+
+    nixos = 
+      baseModules
+      ++ nixosModules
+      ++ guiModules;
+
+    cachyos = 
+      baseModules
+      ++ cachyosModules
+      ++ nonNixosModules
+      ++ guiModules;
+
+    runner = 
+      baseModules
+      ++ nonNixosModules
+      ++ guiModules;
+  };
 in
 {
   # Always import base modules and optionally import gui modules
-  imports = baseModules ++ lib.optionals isGUI guiModules;
+  imports = configurations.${profile};
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
