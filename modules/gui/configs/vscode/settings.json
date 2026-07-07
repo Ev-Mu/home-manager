@@ -46,6 +46,8 @@
 
   "terminal.integrated.defaultProfile.linux": "zsh",
   "terminal.integrated.initialHint": false,
+  "terminal.integrated.fontFamily": "MesloLGM Nerd Font Mono",
+  "terminal.integrated.fontLigatures.enabled": true,
   "terminal.integrated.stickyScroll.enabled": false,
 
   "vim.useSystemClipboard": true,

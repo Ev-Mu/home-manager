@@ -1,6 +1,7 @@
 # Home Manager Configuration
 
-A reproducible Home Manager configuration using Nix flakes for managing user environments across different systems and use cases.
+A reproducible Home Manager configuration using Nix flakes for managing user
+environments across different systems and use cases.
 
 ![Nix and Home Manager install](https://github.com/Ev-Mu/home-manager/actions/workflows/testCommands.yml/badge.svg)
 
@@ -8,12 +9,15 @@ A reproducible Home Manager configuration using Nix flakes for managing user env
 
 ### Quick Install (without cloning)
 
-Run the following command to install Nix and apply the base configuration directly from GitHub:
+Run the following command to install Nix and apply the base configuration
+directly from GitHub:
 
 ```sh
 wget --output-document=/dev/stdout https://nixos.org/nix/install | sh -s -- --daemon --yes \
 && source /etc/profile \
-&& nix --extra-experimental-features 'nix-command flakes' run github:Ev-Mu/home-manager/main#homeConfigurations.base.activationPackage
+&& nix run github:nix-community/home-manager/release-26.05 -- switch \
+  --flake github:ev-mu/home-manager#base \
+  -b backup
 ```
 
 ### Install with Clone
@@ -21,6 +25,7 @@ wget --output-document=/dev/stdout https://nixos.org/nix/install | sh -s -- --da
 For ongoing development and customization, clone the repository first:
 
 1. Generate an SSH key and add it to GitHub:
+
    ```sh
    ssh-keygen -t rsa -b 4096 -N "" -f ~/.ssh/id_rsa && cat ~/.ssh/id_rsa.pub
    ```
@@ -51,34 +56,43 @@ For ongoing development and customization, clone the repository first:
 
 ### Key Files
 
-- **flake.nix** - Defines flake inputs (nixpkgs, home-manager, nixgl) and outputs (configurations, templates)
-- **home.nix** - Main Home Manager configuration that imports modules and sets up the user environment
-- **modules/base/scripts.nix** - Helper scripts for common operations (nfi, switch)
+- **flake.nix** - Defines flake inputs (nixpkgs, home-manager, nixgl) and
+  outputs (configurations, templates)
+- **home.nix** - Main Home Manager configuration that imports modules and sets
+  up the user environment
+- **modules/base/scripts.nix** - Helper scripts for common operations (nfi,
+  switch)
 
 ## Available Configurations
 
 The flake defines three Home Manager configurations for different use cases:
 
 ### base
+
 - **User**: emusic
 - **Type**: CLI-only configuration
 - **Purpose**: Lightweight setup with Essential CLI tools, no GUI applications
 
 ### gui
+
 - **User**: emusic
 - **Type**: GUI-enabled configuration
-- **Purpose**: Full desktop environment with all base packages plus GUI applications
+- **Purpose**: Full desktop environment with all base packages plus GUI
+  applications
 
 ### runner
+
 - **User**: runner
 - **Type**: GUI-enabled configuration
 - **Purpose**: Configuration for testing configuration changes in GitHub Actions
 
-These configurations exist to support different environments and users while maintaining a consistent configuration approach.
+These configurations exist to support different environments and users while
+maintaining a consistent configuration approach.
 
 ## Templates
 
-This repository includes Nix flake templates for quickly setting up development environments:
+This repository includes Nix flake templates for quickly setting up development
+environments:
 
 ### Available Templates
 
@@ -88,7 +102,8 @@ This repository includes Nix flake templates for quickly setting up development 
 
 ### Using Templates
 
-Each template includes a `flake.nix` file for dependency management and a `.envrc` file for direnv integration.
+Each template includes a `flake.nix` file for dependency management and a
+`.envrc` file for direnv integration.
 
 To initialize a new project using a template:
 
@@ -105,14 +120,17 @@ nfi <template-name>
 The configuration includes helper scripts defined in `modules/base/scripts.nix`:
 
 ### nfi
+
 Initialize a new project using a flake template from this repository.
 
 **Usage:**
+
 ```sh
 nfi <template-name>
 ```
 
 **Example:**
+
 ```sh
 nfi go     # Initialize a Go project
 nfi npm    # Initialize a Node.js project
@@ -120,22 +138,27 @@ nfi python # Initialize a Python project
 ```
 
 ### switch
+
 Switch Home Manager configurations with automatic backup.
 
 **Usage:**
+
 ```sh
-switch [config-name]
+hms [config-name]
 ```
 
 **Examples:**
+
 ```sh
-switch        # Switch to base configuration (default)
-switch gui    # Switch to gui configuration
-switch runner # Switch to runner configuration
+hms cachyos # Switch to gui configuration
+hms runner  # Switch to runner configuration
 ```
 
-This script automatically creates a backup before switching, making it safe to experiment with configuration changes.
+This script automatically creates a backup before switching, making it safe to
+experiment with configuration changes.
 
 ## Resources
 
-For more information about Nix, Home Manager, and flakes, see [RESOURCES.md](RESOURCES.md) for a curated collection of documentation, guides, and references.
+For more information about Nix, Home Manager, and flakes, see
+[RESOURCES.md](RESOURCES.md) for a curated collection of documentation, guides,
+and references.

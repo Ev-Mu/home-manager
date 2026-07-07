@@ -27,4 +27,8 @@
       userSettings = builtins.fromJSON (builtins.readFile ./configs/vscode/settings.json);
     };
   };
+
+  home.packages = [
+    pkgs.nerd-fonts.meslo-lg
+  ];
 }

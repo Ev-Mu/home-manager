@@ -1,20 +1,19 @@
 {
   config,
   pkgs,
-  nixgl,
   ...
 }:
 
 {
-  targets.genericLinux.nixGL.packages = nixgl.packages;
-
   # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.enable
   programs.kitty = {
     package = config.lib.nixGL.wrap pkgs.kitty;
     enable = true;
     themeFile = "kanagawa";
     shellIntegration = {
+      enableBashIntegration = true;
       enableZshIntegration = true;
+      enableFishIntegration = true;
     };
     settings = {
       active_border_color = "#44ffff";

@@ -2,11 +2,11 @@ name: "Nix and Home Manager install "
 
 on:
   push:
-    branches: [ "**" ]
-# Remove for now due to being unable to reach curl script in MR
-# Also in the MR the jobs are duplicated so it may be unnecessary
-#  pull_request:
-#    branches: [ "*" ]
+    branches: ["**"]
+  # Remove for now due to being unable to reach curl script in MR
+  # Also in the MR the jobs are duplicated so it may be unnecessary
+  #  pull_request:
+  #    branches: [ "*" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -15,10 +15,12 @@ jobs:
   setup-without-clone:
     runs-on: ubuntu-latest
     steps:
-        - run: sudo apt install curl -y
-              && sh <(curl -L https://nixos.org/nix/install) --daemon --yes
-              && source /etc/profile
-              && nix --extra-experimental-features 'nix-command flakes' run github:Ev-Mu/home-manager/${{ github.ref }}#homeConfigurations."$USER".activationPackage
+      - run:
+          sudo apt install curl -y && sh <(curl -L
+          https://nixos.org/nix/install) --daemon --yes && source /etc/profile
+          && nix --extra-experimental-features 'nix-command flakes' run
+          github:Ev-Mu/home-manager/${{ github.ref
+          }}#homeConfigurations."$USER".activationPackage
 
   setup-with-clone:
     runs-on: ubuntu-latest
@@ -26,10 +28,10 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
-      - run: ./bin/setup
+      - run: ./scripts/setup.sh
 
   # Removing for now since the script is always to "main" it cant be used properly
   # setup-with-curl:
   #   runs-on: ubuntu-latest
   #   steps:
-  #     - run: bash <(curl -L https://raw.githubusercontent.com/Ev-Mu/home-manager/${{ github.ref }}/bin/curl-setup)
+  #     - run: bash <(curl -L https://raw.githubusercontent.com/Ev-Mu/home-manager/${{ github.ref }}/scripts/curl-setup.sh)

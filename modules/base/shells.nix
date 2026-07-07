@@ -9,8 +9,7 @@ let
   };
   shellAliases = {
     c = "clear";
-    cat = "bat";
-    db = "devbox";
+    cat = "bat --plain";
     clean-docker = "docker system df && docker container prune -f && docker image prune -f && docker builder prune -f && docker volume prune -a -f && docker system df";
     grep = "rg";
     la = "eza --icons --group-directories-first -a";

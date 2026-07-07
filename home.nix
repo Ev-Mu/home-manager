@@ -10,55 +10,33 @@ let
   # Function to import *.nix files in a dir
   importDir =
     dir:
+    map (name: dir + "/${name}") (
+      builtins.filter (name: lib.hasSuffix ".nix" name) (builtins.attrNames (builtins.readDir dir))
+    );
+
+  configs = import ./configs.nix;
+
+  importModule =
+    name:
     let
-      files = builtins.readDir dir;
-      nixFiles = builtins.filter (file: builtins.match ".*\\.nix" file != null) (
-        builtins.attrNames files
-      );
+      path = ./modules + "/${name}";
     in
-    map (file: dir + "/${file}") nixFiles;
+    if builtins.pathExists path then
+      importDir path
+    else
+      throw "Module directory '${name}' does not exist.";
 
-  baseModules = importDir ./modules/base;
-  guiModules = importDir ./modules/gui;
-  nixosModules = importDir ./modules/nixos;
-  nonNixosModules = importDir ./modules/non-nixos;
-  cachyosModules = importDir ./modules/cachyos;
-
-  configurations = {
-    base = 
-      baseModules
-      ++ nonNixosModules;
-
-    base-nixos = 
-      baseModules
-      ++ nixosModules;
-
-    nixos = 
-      baseModules
-      ++ nixosModules
-      ++ guiModules;
-
-    cachyos = 
-      baseModules
-      ++ cachyosModules
-      ++ nonNixosModules
-      ++ guiModules;
-
-    runner = 
-      baseModules
-      ++ nonNixosModules
-      ++ guiModules;
-  };
+  configurations = builtins.mapAttrs (
+    _: cfg: builtins.concatLists (map importModule cfg.modules)
+  ) configs;
 in
 {
-  # Always import base modules and optionally import gui modules
-  imports = configurations.${profile};
+  imports = configurations.${profile} ++ [ ./activation.nix ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  fonts.fontconfig.enable = true;
 
   # Enable the experimental nix-command and flakes
   nix = {
@@ -69,37 +47,4 @@ in
     ];
     gc.dates = "weekly";
   };
-
-  # Move files so that they do not conflict with the ones created by home manager
-  home.activation.moveFiles =
-    lib.hm.dag.entryBefore [ "checkFilesChanged" "checkLinkTargets" "writeBoundary" "installPackages" ]
-      ''
-        [[ -f $HOME/.bashrc ]] && [[ ! -f $HOME/.bashrc.backup ]] && mv $HOME/.bashrc $HOME/.bashrc.backup
-        [[ -f $HOME/.profile ]] && [[ ! -f $HOME/.profile.backup ]] && mv $HOME/.profile $HOME/.profile.backup
-        [[ -f $HOME/.bash_profile ]] && [[ ! -f $HOME/.bash_profile.backup ]] && mv $HOME/.bash_profile $HOME/.bash_profile.backup
-      '';
-  # After switch check if ssh keys exist if not create them
-  home.activation.createSshKey = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    [ ! -f ~/.ssh/id_rsa.pub ] && ${pkgs.openssh.out}/bin/ssh-keygen -t rsa -b 4096 -N "" -f ~/.ssh/id_rsa
-  '';
-  # Check for programs installed on ubuntu that will conflict with nix packages
-  home.activation.checkInstalled =
-    lib.hm.dag.entryAfter [ "onFilesChange" "reloadSystemd" "installPackages" "createSshKey" ]
-      ''
-        toBeRemoved=""
-        [[ -f /usr/bin/firefox ]] && toBeRemoved+="firefox "
-        [[ -f /usr/bin/curl ]] && toBeRemoved+="curl "
-        [[ -f /usr/bin/git ]] && toBeRemoved+="git "
-        [[ -f /usr/bin/vim ]] && toBeRemoved+="vim "
-        if [[ ! $toBeRemoved == "" ]]; then echo -e "\033[1;33mWarning\033[0m: There are apt packages installed that may conflict with nix packages" && echo -e "\033[0;32mRun\033[0m: sudo apt purge --auto-remove $toBeRemoved -y" | xargs; fi
-        if [[ -f /snap/bin/firefox ]]; then echo -e "\033[1;33mWarning\033[0m: There are snap packages installed that may conflict with nix packages" && echo -e "\033[0;32mRun\033[0m: sudo snap remove --purge firefox"; fi
-      '';
-  home.activation.addshells = lib.hm.dag.entryAfter [ "checkInstalled" ] ''
-    [[ -f /etc/NIXOS ]] && exit
-    shell_path="/home/$USER/.nix-profile/bin/zsh"
-    if ! grep -Fxq "$shell_path" /etc/shells; then
-      echo -e "\033[1;33mWarning\033[0m: $shell_path is not in /etc/shells"
-      echo -e "\033[0;32mRun\033[0m: echo \"$shell_path\" | sudo tee -a /etc/shells && chsh -s \"$shell_path\""
-    fi  
-  '';
 }
