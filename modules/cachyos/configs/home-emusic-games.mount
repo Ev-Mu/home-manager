@@ -1,0 +1,11 @@
+[Unit]
+Description=Mount games drive
+
+[Mount]
+What=UUID=9749038e-6f99-41fd-8d15-8f99b39191e0
+Where=/home/emusic/games
+Type=btrfs
+Options=defaults,exec,rw,noatime
+
+[Install]
+WantedBy=multi-user.target
