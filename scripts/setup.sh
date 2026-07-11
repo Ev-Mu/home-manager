@@ -17,4 +17,4 @@ nix-shell -p home-manager \
   --run "home-manager switch \
     -b backup \
     --extra-experimental-features 'nix-command flakes' \
-    --flake .#base"
+    --flake .#runner"
