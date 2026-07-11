@@ -1,0 +1,21 @@
+name: "Nix and Home Manager install "
+
+on:
+  push:
+    branches: ["**"]
+  # Remove for now due to being unable to reach curl script in MR
+  # Also in the MR the jobs are duplicated so it may be unnecessary
+  #  pull_request:
+  #    branches: [ "*" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      - run: ./scripts/setup.sh

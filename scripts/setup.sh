@@ -13,4 +13,8 @@ sh <(curl -L https://nixos.org/nix/install) --daemon --yes
 source /etc/profile
 
 # Run the nix flake configuration 
-nix --extra-experimental-features 'nix-command flakes' run .#homeConfigurations."$USER".activationPackage
+nix-shell -p home-manager \
+  --run "home-manager switch \
+    -b backup \
+    --extra-experimental-features 'nix-command flakes' \
+    --flake .#base"
