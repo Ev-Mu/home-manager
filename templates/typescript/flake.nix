@@ -57,6 +57,9 @@
           default = pkgs.mkShell {
             packages = [
               pkgs.nodejs_24
+              pkgs.typescript
+              pkgs.typescript-language-server
+              pkgs.nodePackages.prettie
               start
               build
               test
@@ -66,6 +69,7 @@
             shellHook = ''
               echo "Node $(node --version)"
               echo "npm  $(npm --version)"
+              echo "TypeScript $(tsc --version)"
             '';
           };
         }

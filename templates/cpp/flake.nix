@@ -1,5 +1,5 @@
 {
-  description = "Go development environment";
+  description = "C++ development environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
@@ -28,14 +28,18 @@
         {
           default = pkgs.mkShell {
             packages = [
-              pkgs.go
-              pkgs.gopls
-              pkgs.gotools
-              pkgs.golangci-lint
+              pkgs.clang
+              pkgs.clang-tools
+              pkgs.cmake
+              pkgs.ninja
+              pkgs.gdb
+              pkgs.pkg-config
             ];
 
             shellHook = ''
-              echo "Go $(go --version)"
+              echo "GCC $(gcc --version | head -n1)"
+              echo "Clang $(clang --version | head -n1)"
+              echo "CMake $(cmake --version | head -n1)"
             '';
           };
         }

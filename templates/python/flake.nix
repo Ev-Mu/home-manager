@@ -1,5 +1,5 @@
 {
-  description = "Node.js development environment";
+  description = "Python development environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";

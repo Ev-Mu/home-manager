@@ -1,5 +1,5 @@
 {
-  description = "Go development environment";
+  description = "Java development environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
@@ -28,14 +28,13 @@
         {
           default = pkgs.mkShell {
             packages = [
-              pkgs.go
-              pkgs.gopls
-              pkgs.gotools
-              pkgs.golangci-lint
+              pkgs.jdk
+              pkgs.maven
+              pkgs.gradle
             ];
 
             shellHook = ''
-              echo "Go $(go --version)"
+              echo "Java $(java --version | head -n1)"
             '';
           };
         }

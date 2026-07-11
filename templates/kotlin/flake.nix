@@ -1,5 +1,5 @@
 {
-  description = "Go development environment";
+  description = "Kotlin development environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
@@ -28,14 +28,13 @@
         {
           default = pkgs.mkShell {
             packages = [
-              pkgs.go
-              pkgs.gopls
-              pkgs.gotools
-              pkgs.golangci-lint
+              pkgs.kotlin
+              pkgs.jdk
+              pkgs.gradle
             ];
 
             shellHook = ''
-              echo "Go $(go --version)"
+              echo "Kotlin $(kotlin -version 2>&1)"
             '';
           };
         }

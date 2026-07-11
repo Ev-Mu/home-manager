@@ -1,5 +1,5 @@
 {
-  description = "Go development environment";
+  description = "Dart development environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
@@ -28,14 +28,13 @@
         {
           default = pkgs.mkShell {
             packages = [
-              pkgs.go
-              pkgs.gopls
-              pkgs.gotools
-              pkgs.golangci-lint
+              pkgs.dart
+              pkgs.flutter
             ];
 
             shellHook = ''
-              echo "Go $(go --version)"
+              echo "Dart $(dart --version 2>&1)"
+              echo "Flutter $(flutter --version | head -n1)"
             '';
           };
         }

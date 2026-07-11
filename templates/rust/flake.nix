@@ -1,5 +1,5 @@
 {
-  description = "Go development environment";
+  description = "Rust development environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
@@ -28,14 +28,15 @@
         {
           default = pkgs.mkShell {
             packages = [
-              pkgs.go
-              pkgs.gopls
-              pkgs.gotools
-              pkgs.golangci-lint
+              pkgs.rustc
+              pkgs.cargo
+              pkgs.rustfmt
+              pkgs.clippy
             ];
 
             shellHook = ''
-              echo "Go $(go --version)"
+              echo "Rust $(rustc --version)"
+              echo "Cargo $(cargo --version)"
             '';
           };
         }

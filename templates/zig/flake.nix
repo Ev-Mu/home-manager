@@ -1,5 +1,5 @@
 {
-  description = "Go development environment";
+  description = "Zig development environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
@@ -28,14 +28,12 @@
         {
           default = pkgs.mkShell {
             packages = [
-              pkgs.go
-              pkgs.gopls
-              pkgs.gotools
-              pkgs.golangci-lint
+              pkgs.zig
+              pkgs.zls
             ];
 
             shellHook = ''
-              echo "Go $(go --version)"
+              echo "Zig $(zig version)"
             '';
           };
         }
