@@ -1,1 +1,1 @@
-[ ! -f ~/.ssh/id_rsa.pub ] && ${pkgs.openssh.out}/bin/ssh-keygen -t rsa -b 4096 -N "" -f ~/.ssh/id_rsa
+[ ! -f ~/.ssh/id_ed25519.pub ] && ssh-keygen -t ed25519 -N "" -f ~/.ssh/id_ed25519
