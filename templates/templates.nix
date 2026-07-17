@@ -58,4 +58,9 @@
     path = ./dart;
     description = "Dart development environment";
   };
+
+  typst = {
+    path = ./typst;
+    description = "Typst development environment";
+  };
 }
