@@ -92,9 +92,9 @@
   # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zellij.enable
   programs.zellij = {
     enable = true;
-    enableBashIntegration = true;
-    enableZshIntegration = true;
-    exitShellOnExit = true;
+    # enableBashIntegration = true;
+    # enableZshIntegration = true;
+    # exitShellOnExit = true;
     extraConfig = ''
       theme "catppuccin-mocha"
       show_startup_tips false
@@ -106,5 +106,22 @@
   # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.tmux.enable
   programs.tmux = {
     enable = true;
+  };
+
+  # https://nix-community.github.io/home-manager/options/home-manager/programs/jujutsu.html
+  programs.jujutsu = {
+    enable = true;
+  };
+
+  # https://nix-community.github.io/home-manager/options/home-manager/programs/jq.html
+  programs.jq = {
+    enable = true;
+  };
+
+  # https://nix-community.github.io/home-manager/options/home-manager/programs/difftastic.html
+  programs.difftastic = {
+    enable = true;
+    git.enable = true;
+    jujutsu.enable = true;
   };
 }
