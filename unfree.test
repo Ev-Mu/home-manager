@@ -1,5 +1,7 @@
-{lib, ...}: {
-  nixpkgs.config.allowUnfreePredicate = pkg:
+{ pkgs, lib, ... }:
+{
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
     builtins.elem (lib.getName pkg) [
       "vscode"
       "windsurf"
@@ -8,5 +10,8 @@
       "vscode-extension-ms-vscode-remote-remote-ssh"
       "vscode-extension-ms-vscode-remote-remote-containers"
     ];
-}
 
+  home.packages = [
+    pkgs.windsurf
+  ];
+}

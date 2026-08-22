@@ -3,6 +3,6 @@
 {
   home.packages = [
     pkgs.brave
-    pkgs.windsurf
+    pkgs.zed-editor
   ];
 }

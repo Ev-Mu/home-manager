@@ -45,6 +45,7 @@
   # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vim.enable
   programs.vim = {
     enable = true;
+    defaultEditor = true;
     settings = {
       background = "dark";
       mouse = "a";

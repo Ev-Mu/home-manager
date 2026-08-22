@@ -11,14 +11,14 @@
 
     pkgs.kubectl
 
-    pkgs.gnumake
+    pkgs.gnumakgite
 
     pkgs.ncdu
+    pkgs.nil
+    pkgs.nixd
     pkgs.nixfmt
 
     (pkgs.wrapHelm pkgs.kubernetes-helm { plugins = [ pkgs.kubernetes-helmPlugins.helm-diff ]; })
-
-    pkgs.ruff
 
     pkgs.tokei
 
