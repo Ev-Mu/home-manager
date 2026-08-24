@@ -1,6 +1,11 @@
 { ... }:
 
 {
+  # https://nix-community.github.io/home-manager/options/home-manager/programs/git.html
+  programs.git = {
+    enable = true;
+  };
+
   # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bat.enable
   programs.bat = {
     enable = true;

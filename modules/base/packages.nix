@@ -6,12 +6,12 @@
 
     pkgs.curl
 
+    pkgs.dnsutils
+
     pkgs.gdu
-    pkgs.git
+    pkgs.gnumake
 
     pkgs.kubectl
-
-    pkgs.gnumakgite
 
     pkgs.ncdu
     pkgs.nil
@@ -25,6 +25,7 @@
     pkgs.unzip
 
     pkgs.wget
+    pkgs.witr
 
     pkgs.yq-go
 
