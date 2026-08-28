@@ -7,6 +7,7 @@
     home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixgl.url = "github:nix-community/nixGL";
+    nixvim.url = "github:nix-community/nixvim";
   };
 
   outputs =
@@ -15,6 +16,7 @@
       nixpkgs-unstable,
       home-manager,
       nixgl,
+      nixvim,
       ...
     }:
     let
@@ -59,6 +61,8 @@
 
           modules = [
             ./home.nix
+
+            nixvim.homeModules.nixvim
 
             {
               home = {

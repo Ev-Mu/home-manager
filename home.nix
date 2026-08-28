@@ -45,6 +45,11 @@ in
       "nix-command"
       "flakes"
     ];
-    gc.dates = "weekly";
+    gc = {
+      automatic = true;
+      dates = "weekly";
+    };
   };
+
+  news.display = "silent";
 }
