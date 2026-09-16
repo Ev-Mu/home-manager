@@ -32,5 +32,7 @@
     pkgs-unstable.devenv
 
     pkgs-unstable.prettier
+
+    pkgs.xclip
   ];
 }
