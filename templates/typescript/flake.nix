@@ -59,7 +59,7 @@
               pkgs.nodejs_24
               pkgs.typescript
               pkgs.typescript-language-server
-              pkgs.nodePackages.prettie
+              pkgs.prettier
               start
               build
               test

@@ -6,6 +6,7 @@
     modules = [
       "base"
       "non-nixos"
+      "ai/non-gui"
     ];
   };
 
@@ -15,6 +16,7 @@
     modules = [
       "base"
       "nixos"
+      "ai/non-gui"
     ];
   };
 
@@ -25,6 +27,8 @@
       "base"
       "nixos"
       "gui"
+      "ai/non-gui"
+      "ai/gui"
     ];
   };
 
@@ -36,6 +40,18 @@
       "cachyos"
       "non-nixos"
       "gui"
+      "ai/non-gui"
+      "ai/gui"
+    ];
+  };
+
+  work = {
+    username = "emusic";
+    homeDirectory = "/home/emusic";
+    modules = [
+      "base"
+      "work"
+      "kubernetes"
     ];
   };
 
