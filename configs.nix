@@ -5,8 +5,8 @@
     homeDirectory = "/home/emusic";
     modules = [
       "base"
-      "non-nixos"
-      "ai/non-gui"
+      "ai"
+      "platforms/generic-linux"
     ];
   };
 
@@ -15,8 +15,8 @@
     homeDirectory = "/home/emusic";
     modules = [
       "base"
-      "nixos"
-      "ai/non-gui"
+      "ai"
+      "platforms/nixos"
     ];
   };
 
@@ -25,10 +25,9 @@
     homeDirectory = "/home/emusic";
     modules = [
       "base"
-      "nixos"
-      "gui"
-      "ai/non-gui"
-      "ai/gui"
+      "ai"
+      "desktop"
+      "platforms/nixos"
     ];
   };
 
@@ -37,11 +36,10 @@
     homeDirectory = "/home/emusic";
     modules = [
       "base"
-      "cachyos"
-      "non-nixos"
-      "gui"
-      "ai/non-gui"
-      "ai/gui"
+      "ai"
+      "desktop"
+      "platforms/generic-linux"
+      "platforms/cachyos"
     ];
   };
 
@@ -50,8 +48,8 @@
     homeDirectory = "/home/emusic";
     modules = [
       "base"
-      "work"
-      "kubernetes"
+      "dev/work"
+      "dev/kubernetes"
     ];
   };
 
@@ -60,8 +58,8 @@
     homeDirectory = "/home/runner";
     modules = [
       "base"
-      "non-nixos"
-      "gui"
+      "desktop"
+      "platforms/generic-linux"
     ];
   };
 }

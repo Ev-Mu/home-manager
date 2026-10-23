@@ -20,18 +20,21 @@ let
     name:
     let
       path = ./modules + "/${name}";
+      defaultPath = path + "/default.nix";
     in
-    if builtins.pathExists path then
+    if builtins.pathExists defaultPath then
+      [ (import defaultPath) ]
+    else if builtins.pathExists path then
       importDir path
     else
-      throw "Module directory '${name}' does not exist.";
+      throw "Module directory '${name}' does not exist (checked ${defaultPath} and .nix files).";
 
   configurations = builtins.mapAttrs (
     _: cfg: builtins.concatLists (map importModule cfg.modules)
   ) configs;
 in
 {
-  imports = configurations.${profile} ++ [ ./activation.nix ];
+  imports = configurations.${profile} ++ [ ./modules/options.nix ./activation.nix ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
