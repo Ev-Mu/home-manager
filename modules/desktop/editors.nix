@@ -6,7 +6,6 @@
     profiles.default = {
       extensions = with pkgs.vscode-extensions; [
         aaron-bond.better-comments
-        # asvetliakov.vscode-neovim
         christian-kohler.path-intellisense
         esbenp.prettier-vscode
         gruntfuggly.todo-tree
@@ -31,10 +30,7 @@
   home.packages = [
     pkgs.nerd-fonts.meslo-lg
   ];
-}
-{ ... }:
 
-{
   # https://nix-community.github.io/home-manager/options/home-manager/programs/windsurf.html
   programs.windsurf = {
     enable = true;

@@ -1,11 +1,8 @@
-{
-  config,
-  pkgs,
-  ...
-}:
+{ config, pkgs, ... }:
 
 {
-  # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.enable
+  imports = [ ];
+
   programs.kitty = {
     package = config.lib.nixGL.wrap pkgs.kitty;
     enable = true;
@@ -28,18 +25,10 @@
       window_margin_width = "10";
     };
   };
-}
-{
-  # config,
-  # pkgs,
-  ...
-}:
 
-{
-  # https://nix-community.github.io/home-manager/options/home-manager/programs/wezterm.html
+  # Wezterm
   programs.wezterm = {
     enable = true;
-    # package = config.lib.nixGL.wrap pkgs.wezterm;
     enableBashIntegration = true;
     enableZshIntegration = true;
     extraConfig = builtins.readFile ./configs/wezterm/wezterm.lua;

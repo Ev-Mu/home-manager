@@ -21,13 +21,16 @@ let
     let
       path = ./modules + "/${name}";
       defaultPath = path + "/default.nix";
+      filePath = path + ".nix";
     in
     if builtins.pathExists defaultPath then
       [ (import defaultPath) ]
+    else if builtins.pathExists filePath then
+      [ (import filePath) ]
     else if builtins.pathExists path then
       importDir path
     else
-      throw "Module directory '${name}' does not exist (checked ${defaultPath} and .nix files).";
+      throw "Module directory '${name}' does not exist (checked ${defaultPath}, ${filePath}, and .nix files).";
 
   configurations = builtins.mapAttrs (
     _: cfg: builtins.concatLists (map importModule cfg.modules)
