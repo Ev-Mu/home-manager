@@ -3,7 +3,7 @@
 A reproducible Home Manager configuration using Nix flakes for managing user
 environments across different systems and use cases.
 
-![Nix and Home Manager install](https://github.com/Ev-Mu/home-manager/actions/workflows/testCommands.yml/badge.svg)
+![Nix and Home Manager install](https://github.com/Ev-Mu/home-manager/actions/workflows/testSetup.yml/badge.svg)
 
 ## Installation
 
@@ -41,60 +41,12 @@ For ongoing development and customization, clone the repository first:
        && home-manager switch -b backup --extra-experimental-features 'nix-command flakes' --flake $HOME/.config/home-manager#base"
    ```
 
-## Repository Structure
-
-```
-.
-├── flake.nix          # Main flake configuration with inputs and outputs
-├── home.nix           # Core Home Manager configuration
-├── modules/           # Modular configuration files
-│   ├── base/          # Base configuration (includes scripts.nix)
-│   └── gui/           # GUI-specific configuration
-├── templates/         # Nix flake templates for development environments
-└── bin/               # Binary files and executables
-```
-
-### Key Files
-
-- **flake.nix** - Defines flake inputs (nixpkgs, home-manager, nixgl) and
-  outputs (configurations, templates)
-- **home.nix** - Main Home Manager configuration that imports modules and sets
-  up the user environment
-- **modules/base/scripts.nix** - Helper scripts for common operations (nfi,
-  switch)
-
-## Available Configurations
-
-The flake defines three Home Manager configurations for different use cases:
-
-### base
-
-- **User**: emusic
-- **Type**: CLI-only configuration
-- **Purpose**: Lightweight setup with Essential CLI tools, no GUI applications
-
-### gui
-
-- **User**: emusic
-- **Type**: GUI-enabled configuration
-- **Purpose**: Full desktop environment with all base packages plus GUI
-  applications
-
-### runner
-
-- **User**: runner
-- **Type**: GUI-enabled configuration
-- **Purpose**: Configuration for testing configuration changes in GitHub Actions
-
-These configurations exist to support different environments and users while
-maintaining a consistent configuration approach.
-
 ## Templates
 
 This repository includes Nix flake templates for quickly setting up development
 environments:
 
-### Available Templates
+### Some of the available Templates
 
 - **go** - Go development environment with necessary tooling
 - **npm** - Node.js development environment with npm/yarn support
