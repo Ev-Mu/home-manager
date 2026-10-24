@@ -6,9 +6,6 @@ sudo apt install curl -y
 # Install nix package manager
 sh <(curl -L https://nixos.org/nix/install) --daemon --yes
 
-# Remove programs on ubuntu so there are no conflicts with nix packages
-./remove-programs.sh
-
 # Source to get nix commands
 source /etc/profile
 
