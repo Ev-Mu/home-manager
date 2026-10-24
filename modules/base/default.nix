@@ -6,6 +6,7 @@
     ./shells.nix
     ./scripts.nix
     ./nixvim.nix
+    ./lazyvim.nix
     ./worktrunk.nix
   ];
 }

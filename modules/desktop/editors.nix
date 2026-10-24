@@ -31,8 +31,8 @@
     pkgs.nerd-fonts.meslo-lg
   ];
 
-  # https://nix-community.github.io/home-manager/options/home-manager/programs/windsurf.html
-  programs.windsurf = {
+  # https://nix-community.github.io/home-manager/options/home-manager/programs/zed-editor.html
+  programs.zed-editor = {
     enable = true;
   };
 }

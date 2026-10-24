@@ -3,9 +3,10 @@
 {
   imports = [ ];
 
+  # https://nix-community.github.io/home-manager/options/home-manager/programs/kitty.html
   programs.kitty = {
     package = config.lib.nixGL.wrap pkgs.kitty;
-    enable = true;
+    enable = false;
     themeFile = "kanagawa";
     shellIntegration = {
       enableBashIntegration = true;
@@ -26,11 +27,27 @@
     };
   };
 
-  # Wezterm
+  # https://nix-community.github.io/home-manager/options/home-manager/programs/wezterm.html
   programs.wezterm = {
-    enable = true;
+    enable = false;
     enableBashIntegration = true;
     enableZshIntegration = true;
     extraConfig = builtins.readFile ./configs/wezterm/wezterm.lua;
+  };
+
+  # https://nix-community.github.io/home-manager/options/home-manager/programs/ghostty.html
+  programs.ghostty = {
+    enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+    systemd.enable = true;
+    settings = {
+      font-size = 10;
+      keybind = [
+        "ctrl+h=goto_split:left"
+        "ctrl+l=goto_split:right"
+      ];
+      theme = "Ayu";
+    };
   };
 }

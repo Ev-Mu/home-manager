@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs-unstable, ... }:
 
 {
   # https://nix-community.github.io/home-manager/options/home-manager/programs/git.html
@@ -11,11 +11,21 @@
     enable = true;
   };
 
+  # https://nix-community.github.io/home-manager/options/home-manager/programs/devenv.html
+  # TODO coming in 26.11
+  # programs.devenv = {
+  #   enable = true;
+  #   package = pkgs-unstable.devenv;
+  #   enableBashIntegration = true;
+  #   enableZshIntegration = true;
+  # };
+
   # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.direnv.enable
   programs.direnv = {
     enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true;
+    # enableGitIntegration = true; # TODO coming in 26.11
     nix-direnv.enable = true;
     silent = true;
   };
@@ -33,11 +43,6 @@
     enableZshIntegration = true;
 
     defaultCommand = "fd --type f";
-  };
-
-  # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.k9s.enable
-  programs.k9s = {
-    enable = true;
   };
 
   # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nix-index.enable

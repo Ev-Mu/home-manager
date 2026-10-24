@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 let
   sessionVariables = {
@@ -10,14 +10,22 @@ let
   shellAliases = {
     c = "clear";
     cat = "bat --plain";
-    clean-docker = "docker system df && docker container prune -f && docker image prune -f && docker builder prune -f && docker volume prune -a -f && docker system df";
+    clean-docker = ''
+      docker system df \
+            && docker container prune -f \
+            && docker image prune -f \
+            && docker builder prune -f \
+            && docker volume prune -a -f \
+            && docker system df'';
     grep = "rg";
     la = "eza --icons --group-directories-first -a";
     ll = "eza --icons --group-directories-first -lh";
     lla = "eza --icons --group-directories-first -lah";
     ls = "eza --icons --group-directories-first";
     lt = "eza --icons --tree";
-    make-keys = "ssh-keygen -t rsa -b 4096";
+    make-keys = ''
+      [ ! -f ~/.ssh/id_ed25519.pub ] \
+            && ${pkgs.openssh.out}/bin/ssh-keygen -t ed25519 -N "" -f ~/.ssh/id_ed25519'';
     rebuild = "sudo nixos-rebuild switch --flake $HOME/.config/nixos#$USER";
   };
   shellExtras =

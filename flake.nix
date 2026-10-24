@@ -8,6 +8,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixgl.url = "github:nix-community/nixGL";
     nixvim.url = "github:nix-community/nixvim";
+    lazyvim.url = "github:pfassina/lazyvim-nix";
   };
 
   outputs =
@@ -17,6 +18,7 @@
       home-manager,
       nixgl,
       nixvim,
+      lazyvim,
       ...
     }:
     let
@@ -63,6 +65,7 @@
             ./home.nix
 
             nixvim.homeModules.nixvim
+            lazyvim.homeManagerModules.default
 
             {
               home = {

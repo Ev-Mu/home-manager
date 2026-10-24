@@ -23,6 +23,6 @@
 
     pkgs.yq-go
 
-    pkgs-unstable.devenv
+    pkgs-unstable.devenv # TODO remove in 26.11
   ];
 }

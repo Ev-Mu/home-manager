@@ -1,6 +1,6 @@
 {
   programs.nixvim = {
-    enable = true;
+    enable = false;
 
     # Core editor behavior
     opts = {
