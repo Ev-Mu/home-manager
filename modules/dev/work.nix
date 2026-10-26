@@ -3,5 +3,6 @@
 {
   home.packages = [
     pkgs.gnumake
+    pkgs-unstable.pixi
   ];
 }

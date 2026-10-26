@@ -15,6 +15,7 @@
     pkgs.nixfmt
 
     pkgs.tokei
+    pkgs.tuios
 
     pkgs.unzip
 
