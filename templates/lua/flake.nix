@@ -8,6 +8,7 @@
   outputs =
     { nixpkgs, ... }:
     let
+      # genAttrs below exposes the same devShell interface for each platform.
       systems = [
         "x86_64-linux"
         "aarch64-linux"

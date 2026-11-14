@@ -1,43 +1,16 @@
 {
-  config,
   pkgs,
-  lib,
-  nixgl,
-  profile,
+  stateVersion,
   ...
 }:
-let
-  # Function to import *.nix files in a dir
-  importDir =
-    dir:
-    map (name: dir + "/${name}") (
-      builtins.filter (name: lib.hasSuffix ".nix" name) (builtins.attrNames (builtins.readDir dir))
-    );
-
-  configs = import ./configs.nix;
-
-  importModule =
-    name:
-    let
-      path = ./modules + "/${name}";
-      defaultPath = path + "/default.nix";
-      filePath = path + ".nix";
-    in
-    if builtins.pathExists defaultPath then
-      [ (import defaultPath) ]
-    else if builtins.pathExists filePath then
-      [ (import filePath) ]
-    else if builtins.pathExists path then
-      importDir path
-    else
-      throw "Module directory '${name}' does not exist (checked ${defaultPath}, ${filePath}, and .nix files).";
-
-  configurations = builtins.mapAttrs (
-    _: cfg: builtins.concatLists (map importModule cfg.modules)
-  ) configs;
-in
 {
-  imports = configurations.${profile} ++ [ ./modules/options.nix ./activation.nix ];
+  imports = [
+    ./modules/options.nix
+    ./activation.nix
+  ];
+
+  # Keep this at the version first used for this home, even as inputs advance.
+  home.stateVersion = stateVersion;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

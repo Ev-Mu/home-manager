@@ -1,5 +1,6 @@
 {
   programs.nixvim = {
+    # Kept as an optional alternative; LazyVim is the enabled editor setup.
     enable = false;
 
     # Core editor behavior

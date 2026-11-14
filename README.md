@@ -49,7 +49,7 @@ environments:
 ### Some of the available Templates
 
 - **go** - Go development environment with necessary tooling
-- **npm** - Node.js development environment with npm/yarn support
+- **typescript** - TypeScript development environment with npm support
 - **python** - Python development environment with pip and common tools
 
 ### Using Templates
@@ -69,7 +69,7 @@ nfi <template-name>
 
 ## Helper Scripts
 
-The configuration includes helper scripts defined in `modules/base/scripts.nix`:
+The configuration includes helper scripts defined in `modules/features/core/scripts.nix`:
 
 ### nfi
 
@@ -96,18 +96,37 @@ Switch Home Manager configurations with automatic backup.
 **Usage:**
 
 ```sh
-hms [config-name]
+hms <config-name>
 ```
 
 **Examples:**
 
 ```sh
-hms cachyos # Switch to gui configuration
+hms cachyos # Switch to CachyOS configuration
 hms runner  # Switch to runner configuration
 ```
 
 This script automatically creates a backup before switching, making it safe to
 experiment with configuration changes.
+
+## Configuration Profiles
+
+Each flake target is defined by a file in `profiles/`. A profile sets the Home
+Manager account and explicitly imports the features and platform modules it
+needs.
+
+| Profile | Intended use |
+| --- | --- |
+| `base` | Core command-line environment and generic Linux support |
+| `base-nixos` | Core command-line environment on NixOS |
+| `nixos` | Core environment plus desktop features on NixOS |
+| `cachyos` | Core and desktop features on CachyOS |
+| `work` | Core environment plus work and Kubernetes tools |
+| `runner` | Runner account with core and desktop features on generic Linux |
+
+Reusable configuration lives under `modules/features/`; operating-system
+integration lives under `modules/platforms/`. Shared Home Manager settings and
+activation actions are configured in `home.nix` and `activation.nix`.
 
 ## Resources
 

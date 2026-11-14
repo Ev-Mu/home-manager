@@ -1,13 +1,17 @@
 { pkgs, ... }:
 
 let
-  templates = import ../../templates/templates.nix;
+  templates = import ../../../templates/templates.nix;
   templateNames = builtins.attrNames templates;
-  configs = import ../../configs.nix;
-  configNames = builtins.attrNames configs;
+  # Match hms choices to the profile files that define flake targets.
+  profileNames = builtins.filter (name: builtins.match ".+\\.nix" name != null) (
+    builtins.attrNames (builtins.readDir ../../../profiles)
+  );
+  configNames = map (name: builtins.substring 0 (builtins.stringLength name - 4) name) profileNames;
 in
 {
   home.packages = [
+    # Escape Bash parameter expansions as ''${...} inside these Nix strings.
     (pkgs.writeShellApplication {
       name = "nfi";
 

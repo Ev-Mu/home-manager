@@ -6,6 +6,7 @@
     enable = true;
     # TODO: Get nixgl working properly on cachyos
     nixGL = {
+      # Wrap GUI applications so Nix-built binaries can use host graphics drivers.
       packages = nixgl.packages;
       defaultWrapper = "mesa";
       installScripts = [ "mesa" ];

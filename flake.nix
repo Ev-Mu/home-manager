@@ -5,6 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     home-manager.url = "github:nix-community/home-manager/release-26.05";
+    # Keep Home Manager on the same nixpkgs revision as this flake.
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixgl.url = "github:nix-community/nixGL";
     nixvim.url = "github:nix-community/nixvim";
@@ -38,23 +39,23 @@
 
       pkgs = mkPkgs nixpkgs;
 
+      # Use unstable selectively while the main package set stays pinned.
       pkgs-unstable = mkPkgs nixpkgs-unstable;
 
-      configs = import ./configs.nix;
+      # Profile filenames define the public flake target names.
+      profileDirectory = builtins.readDir ./profiles;
+      profileNames = builtins.filter (name: builtins.match ".+\\.nix" name != null) (
+        builtins.attrNames profileDirectory
+      );
 
       mkHome =
         profile:
-        {
-          username,
-          homeDirectory,
-          ...
-        }:
         home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
 
+          # These extra arguments are available to every imported module.
           extraSpecialArgs = {
             inherit
-              profile
               nixgl
               pkgs-unstable
               stateVersion
@@ -63,20 +64,21 @@
 
           modules = [
             ./home.nix
+            (./profiles + "/${profile}.nix")
 
             nixvim.homeModules.nixvim
             lazyvim.homeManagerModules.default
-
-            {
-              home = {
-                inherit username homeDirectory stateVersion;
-              };
-            }
           ];
         };
     in
     {
-      homeConfigurations = builtins.mapAttrs (profile: cfg: mkHome profile cfg) configs;
+      # Each profiles/*.nix module becomes a named Home Manager flake target.
+      homeConfigurations = builtins.listToAttrs (
+        map (profile: {
+          name = builtins.substring 0 (builtins.stringLength profile - 4) profile;
+          value = mkHome (builtins.substring 0 (builtins.stringLength profile - 4) profile);
+        }) profileNames
+      );
 
       templates = import ./templates/templates.nix;
     };

@@ -1,3 +1,4 @@
+# Template names here are the targets exposed by the flake and accepted by nfi.
 {
   rust = {
     path = ./rust;

@@ -2,6 +2,7 @@
 
 {
   home.packages = [
+    # Home Manager installs this helper; running it writes a system-level unit.
     (pkgs.writeShellApplication {
       name = "setup-games-mount";
 
