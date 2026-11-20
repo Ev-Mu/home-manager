@@ -9,6 +9,7 @@
     pkgs.dnsutils
 
     pkgs.gdu
+    pkgs.git
 
     pkgs.nil
     pkgs.nixd

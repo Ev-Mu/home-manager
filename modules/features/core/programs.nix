@@ -2,9 +2,9 @@
 
 {
   # https://nix-community.github.io/home-manager/options/home-manager/programs/git.html
-  programs.git = {
-    enable = true;
-  };
+  # programs.git = {
+  #   enable = true;
+  # };
 
   # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bat.enable
   programs.bat = {
@@ -132,7 +132,6 @@
   # https://nix-community.github.io/home-manager/options/home-manager/programs/difftastic.html
   programs.difftastic = {
     enable = true;
-    git.enable = true;
     jujutsu.enable = true;
     options = {
       display = "side-by-side-show-both";
