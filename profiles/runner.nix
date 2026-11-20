@@ -1,7 +1,6 @@
 {
   imports = [
     ../modules/features/core
-    ../modules/features/desktop
     ../modules/platforms/generic-linux.nix
   ];
 

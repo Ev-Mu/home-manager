@@ -15,9 +15,10 @@ directly from GitHub:
 ```sh
 wget --output-document=/dev/stdout https://nixos.org/nix/install | sh -s -- --daemon --yes \
 && source /etc/profile \
-&& nix run github:nix-community/home-manager/release-26.05 -- switch \
-  --flake github:ev-mu/home-manager#base \
-  -b backup
+&& nix run --extra-experimental-features 'nix-command flakes' \
+    github:nix-community/home-manager/release-26.05 -- switch \
+    --extra-experimental-features 'nix-command flakes' \
+    --flake github:ev-mu/home-manager#base -b backup
 ```
 
 ### Install with Clone
